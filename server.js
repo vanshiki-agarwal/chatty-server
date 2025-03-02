@@ -21,9 +21,16 @@ io.on("connection", (socket) => {
   //     socket.emit("do something");
   //   });
   socket.on("send_message", (msg) => {
-    console.log(msg);
     socket.broadcast.emit("receive_message", msg);
     console.log("msg broadcasted");
+  });
+
+  socket.on("user_typing", (data) => {
+    socket.broadcast.emit("user_typing", data);
+  });
+  socket.on("new_user", (data) => {
+    socket.broadcast.emit("new_user", data.user);
+    console.log("user broadcasted", data.user);
   });
 });
 
