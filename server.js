@@ -10,16 +10,12 @@ const io = new Server(server, {
   },
 });
 
+// Add a GET route
+app.get("/", (req, res) => {
+  res.send("Socket.io server is running!");
+});
+
 io.on("connection", (socket) => {
-  //   socket.emit("connection", "connected");
-  //   console.log(`User is connected with id: ${socket.id}`);
-  //   socket.on("client ready", (msg) => {
-  //     console.log(msg);
-  //   });
-  //   socket.on("btn clicked", () => {
-  //     console.log("Button clicked");
-  //     socket.emit("do something");
-  //   });
   socket.on("send_message", (msg) => {
     socket.broadcast.emit("receive_message", msg);
     console.log("msg broadcasted");
@@ -28,6 +24,7 @@ io.on("connection", (socket) => {
   socket.on("user_typing", (data) => {
     socket.broadcast.emit("user_typing", data);
   });
+
   socket.on("new_user", (data) => {
     socket.broadcast.emit("new_user", data.user);
     console.log("user broadcasted", data.user);
