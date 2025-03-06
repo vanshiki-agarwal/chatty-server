@@ -1,0 +1,13 @@
+services:
+  server-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: chatty-server-dev
+    container_name: chatty-server-dev
+    environment:
+      - NODE_ENV=development
+    ports:
+      - "3001:3001"
+    volumes:
+      - .:/app:z
